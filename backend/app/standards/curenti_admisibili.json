@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "sursa": "HD 60364-5-52 / I7-2011 - tabele curenți admisibili cabluri cupru, izolație PVC",
+    "_todo": "verifică cu I7-2011 / HD 60364-5-52 tabelele oficiale înainte de utilizare în proiecte reale — valorile de mai jos sunt reconstituite din practică inginerească uzuală, nu citate direct din standard",
+    "conditii_referinta": "conductor cupru, izolație PVC 70°C, temperatură ambiantă 30°C, fără factori de corecție aplicați (vezi factori_corectie_temperatura)"
+  },
+  "moduri_pozare": {
+    "B1": {
+      "descriere": "conductoare izolate în tub montat în/pe perete izolator",
+      "curenti_admisibili_a": {
+        "1.5": 17.5,
+        "2.5": 24,
+        "4": 32,
+        "6": 41,
+        "10": 57,
+        "16": 76,
+        "25": 101,
+        "35": 125,
+        "50": 151,
+        "70": 192,
+        "95": 232,
+        "120": 269
+      }
+    },
+    "C": {
+      "descriere": "cablu multiconductor montat direct pe perete/tavan",
+      "curenti_admisibili_a": {
+        "1.5": 19.5,
+        "2.5": 27,
+        "4": 36,
+        "6": 46,
+        "10": 63,
+        "16": 85,
+        "25": 112,
+        "35": 138,
+        "50": 168,
+        "70": 213,
+        "95": 258,
+        "120": 299
+      }
+    }
+  },
+  "factori_corectie_temperatura": {
+    "_todo": "verifică cu HD 60364-5-52 tabelul de corecție pentru temperatură ambiantă, izolație PVC",
+    "25": 1.03,
+    "30": 1.0,
+    "35": 0.94,
+    "40": 0.87,
+    "45": 0.79
+  }
+}

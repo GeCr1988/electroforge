@@ -1,0 +1,18 @@
+{
+  "_meta": {
+    "_todo": "coeficienții de mai jos sunt valori uzuale de practică inginerească — trebuie confirmați cu I7-2011 (anexele cu coeficienți recomandați Ku/Ks) pentru fiecare tip de receptor/clădire înainte de utilizare în proiecte reale"
+  },
+  "ku_implicit_per_tip_receptor": {
+    "iluminat": 1.0,
+    "priza": 0.2,
+    "motor": 0.75,
+    "forta": 0.75
+  },
+  "ks_implicit_per_numar_circuite": {
+    "_todo": "verifică cu I7-2011 tabelul de simultaneitate în funcție de numărul de circuite/receptori dintr-un tablou",
+    "1-3": 1.0,
+    "4-6": 0.8,
+    "7-10": 0.7,
+    "11+": 0.6
+  }
+}

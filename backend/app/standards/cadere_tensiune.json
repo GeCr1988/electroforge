@@ -1,0 +1,11 @@
+{
+  "_meta": {
+    "sursa": "I7-2011 art. 6 (limite cădere de tensiune admisă)"
+  },
+  "limite_procentuale": {
+    "iluminat": 3.0,
+    "forta": 5.0
+  },
+  "rezistivitate_cupru_ohm_mm2_per_m": 0.0225,
+  "_todo_rezistivitate": "verifică cu I7-2011 temperatura de referință folosită pentru rezistivitatea cuprului în formula de cădere de tensiune (0.0225 corespunde ~temperaturii de funcționare; unele surse folosesc 0.0178 la 20°C)"
+}
