@@ -27,3 +27,14 @@ class TipCircuit(str, enum.Enum):
 class StatusConformitate(str, enum.Enum):
     conform = "conform"
     neconform = "neconform"
+
+
+class CategorieComponenta(str, enum.Enum):
+    protectie = "protectie"
+    cablu = "cablu"
+    corp_iluminat = "corp_iluminat"
+    priza = "priza"
+    intrerupator = "intrerupator"
+    tablou = "tablou"
+    doza = "doza"
+    altele = "altele"

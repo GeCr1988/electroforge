@@ -6,7 +6,7 @@ from app.auth.deps import get_current_user
 from app.db.session import get_db
 from app.models.tablou import TabloElectric
 from app.models.user import User
-from app.schemas.tablou import TabloCreate, TabloOut
+from app.schemas.tablou import TabloCreate, TabloOut, TabloUpdate
 
 router = APIRouter(tags=["tablouri"])
 
@@ -37,3 +37,25 @@ def listeaza_tablouri(
 @router.get("/tablouri/{tablou_id}", response_model=TabloOut)
 def obtine_tablou(tablou_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     return get_tablou_or_404(db, tablou_id, user)
+
+
+@router.patch("/tablouri/{tablou_id}", response_model=TabloOut)
+def actualizeaza_tablou(
+    tablou_id: int,
+    payload: TabloUpdate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    tablou = get_tablou_or_404(db, tablou_id, user)
+    for key, value in payload.model_dump(exclude_unset=True).items():
+        setattr(tablou, key, value)
+    db.commit()
+    db.refresh(tablou)
+    return tablou
+
+
+@router.delete("/tablouri/{tablou_id}", status_code=status.HTTP_204_NO_CONTENT)
+def sterge_tablou(tablou_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    tablou = get_tablou_or_404(db, tablou_id, user)
+    db.delete(tablou)
+    db.commit()

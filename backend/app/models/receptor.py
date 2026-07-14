@@ -16,5 +16,8 @@ class Receptor(Base):
     cos_phi: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     ku: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     ks: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
+    componenta_id: Mapped[int | None] = mapped_column(ForeignKey("componente_catalog.id"), nullable=True)
+    cantitate: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
 
     circuit: Mapped["Circuit"] = relationship(back_populates="receptori")
+    componenta: Mapped["ComponentaCatalog | None"] = relationship()

@@ -1,0 +1,107 @@
+{
+  "_meta": {
+    "_todo": "catalog reprezentativ, NU e un catalog comercial real — valorile (In, Icu, prețuri) trebuie înlocuite cu produse reale de la furnizorul ales de utilizator înainte de folosire în proiecte reale"
+  },
+  "componente": [
+    {
+      "categorie": "protectie",
+      "nume": "Disjunctor 1P+N C16",
+      "producator": "generic",
+      "cod_produs": "MCB-C16-1P",
+      "specificatii": {"in_a": 16, "curba": "C", "icu_ka": 6, "poli": 1},
+      "pret_estimativ": 25.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "disjunctor"
+    },
+    {
+      "categorie": "protectie",
+      "nume": "Disjunctor 1P+N C20",
+      "producator": "generic",
+      "cod_produs": "MCB-C20-1P",
+      "specificatii": {"in_a": 20, "curba": "C", "icu_ka": 6, "poli": 1},
+      "pret_estimativ": 27.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "disjunctor"
+    },
+    {
+      "categorie": "protectie",
+      "nume": "Disjunctor 3P C32",
+      "producator": "generic",
+      "cod_produs": "MCB-C32-3P",
+      "specificatii": {"in_a": 32, "curba": "C", "icu_ka": 10, "poli": 3},
+      "pret_estimativ": 65.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "disjunctor"
+    },
+    {
+      "categorie": "cablu",
+      "nume": "Cablu FY 1.5mm²",
+      "producator": "generic",
+      "cod_produs": "FY-1.5",
+      "specificatii": {"sectiune_mm2": 1.5, "tip_izolatie": "PVC"},
+      "pret_estimativ": 2.5,
+      "unitate_masura": "m",
+      "simbol_ref": null
+    },
+    {
+      "categorie": "cablu",
+      "nume": "Cablu FY 2.5mm²",
+      "producator": "generic",
+      "cod_produs": "FY-2.5",
+      "specificatii": {"sectiune_mm2": 2.5, "tip_izolatie": "PVC"},
+      "pret_estimativ": 3.5,
+      "unitate_masura": "m",
+      "simbol_ref": null
+    },
+    {
+      "categorie": "corp_iluminat",
+      "nume": "Corp iluminat LED 12W",
+      "producator": "generic",
+      "cod_produs": "LED-12W",
+      "specificatii": {"putere_w": 12, "flux_lm": 1000, "ip": "IP20"},
+      "pret_estimativ": 45.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "receptor"
+    },
+    {
+      "categorie": "priza",
+      "nume": "Priză dublă cu împământare",
+      "producator": "generic",
+      "cod_produs": "PRIZA-2P",
+      "specificatii": {"curent_a": 16, "ip": "IP20"},
+      "pret_estimativ": 15.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "receptor"
+    },
+    {
+      "categorie": "intrerupator",
+      "nume": "Întrerupător simplu",
+      "producator": "generic",
+      "cod_produs": "INTR-1",
+      "specificatii": {"curent_a": 10, "ip": "IP20"},
+      "pret_estimativ": 12.0,
+      "unitate_masura": "buc",
+      "simbol_ref": "receptor"
+    },
+    {
+      "categorie": "tablou",
+      "nume": "Tablou modular 12 module",
+      "producator": "generic",
+      "cod_produs": "TAB-12M",
+      "specificatii": {"module": 12, "ip": "IP40"},
+      "pret_estimativ": 80.0,
+      "unitate_masura": "buc",
+      "simbol_ref": null
+    },
+    {
+      "categorie": "doza",
+      "nume": "Doză derivație 80mm",
+      "producator": "generic",
+      "cod_produs": "DOZA-80",
+      "specificatii": {"diametru_mm": 80},
+      "pret_estimativ": 3.0,
+      "unitate_masura": "buc",
+      "simbol_ref": null
+    }
+  ]
+}

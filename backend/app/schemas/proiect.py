@@ -9,6 +9,16 @@ class ProiectCreate(BaseModel):
     tip_cladire: TipCladire
     adresa: str | None = None
     tensiune_alimentare: str = "230/400V"
+    impedanta_retea_amonte_ohm: float | None = None
+
+
+class ProiectUpdate(BaseModel):
+    nume: str | None = None
+    beneficiar: str | None = None
+    tip_cladire: TipCladire | None = None
+    adresa: str | None = None
+    tensiune_alimentare: str | None = None
+    impedanta_retea_amonte_ohm: float | None = None
 
 
 class ProiectOut(BaseModel):
@@ -20,4 +30,5 @@ class ProiectOut(BaseModel):
     tip_cladire: TipCladire
     adresa: str | None
     tensiune_alimentare: str
+    impedanta_retea_amonte_ohm: float | None
     owner_id: int

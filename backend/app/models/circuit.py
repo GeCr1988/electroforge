@@ -1,4 +1,4 @@
-from sqlalchemy import Enum, Float, ForeignKey, String
+from sqlalchemy import Boolean, Enum, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -17,8 +17,17 @@ class Circuit(Base):
     sectiune_mm2: Mapped[float | None] = mapped_column(Float, nullable=True)
     curent_nominal_a: Mapped[float | None] = mapped_column(Float, nullable=True)
 
+    protectie_selectata_id: Mapped[int | None] = mapped_column(
+        ForeignKey("componente_catalog.id"), nullable=True
+    )
+    protectie_auto: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    cablu_selectat_id: Mapped[int | None] = mapped_column(ForeignKey("componente_catalog.id"), nullable=True)
+    cablu_auto: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+
     tablou: Mapped["TabloElectric"] = relationship(back_populates="circuite")
     receptori: Mapped[list["Receptor"]] = relationship(back_populates="circuit", cascade="all, delete-orphan")
     rezultate: Mapped[list["CalculRezultat"]] = relationship(
         back_populates="circuit", cascade="all, delete-orphan"
     )
+    protectie_selectata: Mapped["ComponentaCatalog | None"] = relationship(foreign_keys=[protectie_selectata_id])
+    cablu_selectat: Mapped["ComponentaCatalog | None"] = relationship(foreign_keys=[cablu_selectat_id])

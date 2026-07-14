@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, Enum, ForeignKey, String
+from sqlalchemy import DateTime, Enum, Float, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.session import Base
@@ -16,6 +16,7 @@ class Proiect(Base):
     tip_cladire: Mapped[TipCladire] = mapped_column(Enum(TipCladire, name="tip_cladire"), nullable=False)
     adresa: Mapped[str] = mapped_column(String(500), nullable=True)
     tensiune_alimentare: Mapped[str] = mapped_column(String(50), nullable=False, default="230/400V")
+    impedanta_retea_amonte_ohm: Mapped[float | None] = mapped_column(Float, nullable=True)
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 

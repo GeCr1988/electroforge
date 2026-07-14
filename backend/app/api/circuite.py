@@ -6,7 +6,7 @@ from app.auth.deps import get_current_user
 from app.db.session import get_db
 from app.models.circuit import Circuit
 from app.models.user import User
-from app.schemas.circuit import CircuitCreate, CircuitOut
+from app.schemas.circuit import CircuitCreate, CircuitOut, CircuitUpdate
 
 router = APIRouter(tags=["circuite"])
 
@@ -37,3 +37,32 @@ def listeaza_circuite(
 @router.get("/circuite/{circuit_id}", response_model=CircuitOut)
 def obtine_circuit(circuit_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
     return get_circuit_or_404(db, circuit_id, user)
+
+
+@router.patch("/circuite/{circuit_id}", response_model=CircuitOut)
+def actualizeaza_circuit(
+    circuit_id: int,
+    payload: CircuitUpdate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+):
+    circuit = get_circuit_or_404(db, circuit_id, user)
+    updates = payload.model_dump(exclude_unset=True)
+    # o suprascriere manuală a componentei sugerate automat dezactivează
+    # auto-sugestia, ca un recalcul ulterior să nu-i șteargă alegerea
+    if "protectie_selectata_id" in updates:
+        updates["protectie_auto"] = False
+    if "cablu_selectat_id" in updates:
+        updates["cablu_auto"] = False
+    for key, value in updates.items():
+        setattr(circuit, key, value)
+    db.commit()
+    db.refresh(circuit)
+    return circuit
+
+
+@router.delete("/circuite/{circuit_id}", status_code=status.HTTP_204_NO_CONTENT)
+def sterge_circuit(circuit_id: int, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
+    circuit = get_circuit_or_404(db, circuit_id, user)
+    db.delete(circuit)
+    db.commit()

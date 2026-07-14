@@ -15,9 +15,14 @@ export default function AppChrome({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="flex items-center justify-between border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
-        <Link href="/proiecte" className="text-lg font-semibold">
-          Electro-Proiect
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/proiecte" className="text-lg font-semibold">
+            Electro-Proiect
+          </Link>
+          <Link href="/catalog" className="text-sm text-zinc-500 hover:underline">
+            Catalog
+          </Link>
+        </div>
         <button
           onClick={handleLogout}
           className="rounded-md border border-zinc-300 px-3 py-1.5 text-sm hover:bg-zinc-100 dark:border-zinc-700 dark:hover:bg-zinc-900"

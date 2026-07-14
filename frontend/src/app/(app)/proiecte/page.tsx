@@ -25,6 +25,16 @@ export default function ProiecteListPage() {
 
   useEffect(incarcaProiecte, []);
 
+  async function handleDelete(id: number) {
+    if (!window.confirm("Ștergi acest proiect? Toate tablourile/circuitele/receptorii lui se șterg definitiv.")) return;
+    try {
+      await api.stergeProiect(id);
+      incarcaProiecte();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Eroare la ștergere");
+    }
+  }
+
   async function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     setCreating(true);
@@ -102,16 +112,19 @@ export default function ProiecteListPage() {
       ) : (
         <ul className="divide-y divide-zinc-200 rounded-lg border border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
           {proiecte.map((p) => (
-            <li key={p.id}>
-              <Link
-                href={`/proiecte/${p.id}`}
-                className="flex flex-col gap-1 px-4 py-3 hover:bg-zinc-50 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-zinc-900"
-              >
+            <li key={p.id} className="flex items-center justify-between gap-2 px-4 py-3 hover:bg-zinc-50 dark:hover:bg-zinc-900">
+              <Link href={`/proiecte/${p.id}`} className="flex flex-1 flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
                 <span className="font-medium">{p.nume}</span>
                 <span className="text-sm text-zinc-500">
                   {p.beneficiar} · {p.tip_cladire}
                 </span>
               </Link>
+              <button
+                onClick={() => handleDelete(p.id)}
+                className="shrink-0 rounded-md px-2 py-1 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+              >
+                Șterge
+              </button>
             </li>
           ))}
         </ul>

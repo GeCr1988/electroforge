@@ -5,6 +5,10 @@ class TabloCreate(BaseModel):
     nume: str
 
 
+class TabloUpdate(BaseModel):
+    nume: str | None = None
+
+
 class TabloOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

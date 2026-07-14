@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8" />
+<title>Breviar de calcul — {{ proiect.nume }}</title>
+<style>
+  @page { size: A4; margin: 2cm; }
+  body { font-family: sans-serif; font-size: 11px; color: #1f2937; }
+  h1 { font-size: 20px; margin-bottom: 0; }
+  h2 { font-size: 15px; border-bottom: 1px solid #d4d4d8; padding-bottom: 4px; margin-top: 24px; }
+  h3 { font-size: 13px; margin-bottom: 4px; }
+  .subtitlu { color: #52525b; margin-top: 4px; }
+  .disclaimer {
+    background: #fef3c7; border: 1px solid #f59e0b; border-radius: 6px;
+    padding: 10px 14px; margin: 16px 0; font-size: 10px;
+  }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; }
+  th, td { border: 1px solid #d4d4d8; padding: 4px 6px; text-align: left; font-size: 10px; }
+  th { background: #f4f4f5; }
+  .conform { color: #15803d; font-weight: bold; }
+  .neconform { color: #b91c1c; font-weight: bold; }
+  .schema-wrap { margin: 12px 0; }
+  .total-general { font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>Breviar de calcul — {{ proiect.nume }}</h1>
+<p class="subtitlu">
+  Beneficiar: {{ proiect.beneficiar }} · Tip clădire: {{ proiect.tip_cladire }} ·
+  Tensiune alimentare: {{ proiect.tensiune_alimentare }}
+  {% if proiect.adresa %} · Adresă: {{ proiect.adresa }}{% endif %}
+</p>
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> Acest document generează documentație tehnică orientativă și nu
+  înlocuiește avizarea unui inginer atestat (RTE / proiectant autorizat ANRE). Rezultatele trebuie
+  verificate de o persoană autorizată înainte de depunerea oficială a proiectului.
+</div>
+
+<h2>Memoriu tehnic</h2>
+<p>
+  Instalație electrică {{ proiect.tip_cladire }}, alimentare {{ proiect.tensiune_alimentare }}.
+  Breviarul de mai jos conține calculele de putere, curenți nominali, dimensionare cabluri,
+  curent de scurtcircuit și selectivitatea protecțiilor pentru fiecare circuit, conform I7-2011 /
+  SR EN / HD 60364.
+</p>
+
+{% for tablou in tablouri %}
+<h2>Tablou electric: {{ tablou.nume }}</h2>
+<p>Putere instalată (Pi): {{ "%.0f"|format(tablou.putere_instalata) if tablou.putere_instalata is not none else "—" }} W ·
+   Putere de calcul (Pc): {{ "%.0f"|format(tablou.putere_calcul) if tablou.putere_calcul is not none else "—" }} W</p>
+
+{% for circuit in tablou.circuite %}
+<h3>Circuit: {{ circuit.nume }} ({{ circuit.tip }}, {{ circuit.mod_pozare }}, {{ circuit.lungime_cablu_m }}m)</h3>
+
+<table>
+  <thead><tr><th>Receptor</th><th>Tip</th><th>P (W)</th><th>cos φ</th><th>Ku</th><th>Ks</th></tr></thead>
+  <tbody>
+    {% for r in circuit.receptori %}
+    <tr><td>{{ r.nume }}</td><td>{{ r.tip }}</td><td>{{ r.putere_nominala_w }}</td><td>{{ r.cos_phi }}</td><td>{{ r.ku }}</td><td>{{ r.ks }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<table>
+  <thead><tr><th>Calcul</th><th>Valoare</th><th>Standard</th><th>Status</th></tr></thead>
+  <tbody>
+    {% for rez in circuit.rezultate %}
+    <tr>
+      <td>{{ rez.tip_calcul }}</td>
+      <td>{{ "%.2f"|format(rez.valoare) }} {{ rez.unitate }}</td>
+      <td>{{ rez.standard_referinta }}</td>
+      <td class="{{ rez.status_conformitate }}">{{ rez.status_conformitate }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endfor %}
+{% endfor %}
+
+<h2>Schemă monofilară</h2>
+<div class="schema-wrap">{{ schema_svg | safe }}</div>
+
+<h2>Listă de materiale (BOM)</h2>
+{% if bom_linii %}
+<table>
+  <thead><tr><th>Denumire</th><th>Categorie</th><th>Cantitate</th><th>Preț unitar</th><th>Cost total</th></tr></thead>
+  <tbody>
+    {% for l in bom_linii %}
+    <tr>
+      <td>{{ l.nume }}</td>
+      <td>{{ l.categorie }}</td>
+      <td>{{ l.cantitate_totala }} {{ l.unitate_masura }}</td>
+      <td>{{ "%.2f"|format(l.pret_estimativ) if l.pret_estimativ is not none else "—" }}</td>
+      <td>{{ "%.2f"|format(l.cost_total) if l.cost_total is not none else "—" }}</td>
+    </tr>
+    {% endfor %}
+    <tr class="total-general"><td colspan="4">Total general</td><td>{{ "%.2f"|format(bom_cost_total) }}</td></tr>
+  </tbody>
+</table>
+{% else %}
+<p>Niciun material selectat.</p>
+{% endif %}
+
+</body>
+</html>

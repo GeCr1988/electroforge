@@ -10,6 +10,15 @@ class CircuitCreate(BaseModel):
     lungime_cablu_m: float
 
 
+class CircuitUpdate(BaseModel):
+    nume: str | None = None
+    tip: TipCircuit | None = None
+    mod_pozare: str | None = None
+    lungime_cablu_m: float | None = None
+    protectie_selectata_id: int | None = None
+    cablu_selectat_id: int | None = None
+
+
 class CircuitOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -21,3 +30,7 @@ class CircuitOut(BaseModel):
     lungime_cablu_m: float
     sectiune_mm2: float | None
     curent_nominal_a: float | None
+    protectie_selectata_id: int | None
+    protectie_auto: bool
+    cablu_selectat_id: int | None
+    cablu_auto: bool
